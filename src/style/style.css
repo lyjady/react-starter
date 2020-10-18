@@ -18,3 +18,17 @@
   height: 200px;
   background-color: aqua;
 }
+
+ul,
+li {
+  margin: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+}
+
+span {
+  flex: 2;
+}
