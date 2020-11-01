@@ -1,0 +1,37 @@
+.show-comment > ul {
+  margin: 0;
+  padding: 0;
+}
+
+.show-comment > ul > li:first-child {
+  border-top: 1px solid #CCCCCC;
+}
+
+.show-comment > ul > li {
+  position: relative;
+  display: block;
+  padding: 15px;
+  border: 1px solid #CCCCCC;
+  border-top: none;
+}
+
+.show-comment > ul > li > div {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.show-comment > ul > li > span {
+  padding-left: 50px;
+}
+
+.show-comment > ul > li > span:last-child {
+  position: absolute;
+  padding: 2px;
+  border: 1px solid #CCCCCC;
+  color: #70bccb;
+  top: 0;
+  right: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}

@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ================================================================================== */
+
+header {
+  padding: 60px 70px;
+  background-color: #EEEEEE;
+}
+
+.main {
+  display: flex;
+  padding: 30px 70px 0;
+}
+

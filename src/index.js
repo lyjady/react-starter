@@ -2,56 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './style/style.css'
+import axios from 'axios'
+
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      todos: ['吃饭', '睡觉', '玩游戏', '打代码']
-    }
+  state = {
+    repName: '',
+    repUrl: ''
   }
 
-  addTodo = item => {
-    const {todos} = this.state
-    todos.push(item)
-    this.setState({todos})
-  }
-
-  render() {
-    return (
-      <div style={{padding: '20px'}}>
-        <h1>Simple Todo List</h1>
-        <AddComponent count={this.state.todos.length} addTodo={this.addTodo} />
-        <ListComponent todos={this.state.todos} />
-      </div>
-    )
-  }
-}
-
-class AddComponent extends React.Component {
-
-  addToTodo = () => {
-    this.props.addTodo(this.todoInput.value)
-    this.todoInput.value = ''
+  componentDidMount() {
+    axios.get('https://api.github.com/search/repositories?q=Spring&sort=stars').then(res => {
+      this.setState({
+        repName: res.data.items[1].description,
+        repUrl: res.data.items[1].html_url
+      })
+    })
   }
 
   render() {
     return (
-      <div style={{marginBottom: '20px'}}>
-        <input style={{marginRight: '10px'}} type={'text'} ref={input => this.todoInput = input}/>
-        <button onClick={this.addToTodo}>Add #{this.props.count + 1}</button>
-      </div>
-    )
-  }
-}
-
-class ListComponent extends React.Component {
-  render() {
-    return (
-      <ul style={{margin: '0px', padding: '0px'}}>
-        {this.props.todos.map((item, index) => <li key={index}>{`${index + 1}.${item}`}</li>)}
-      </ul>
+      this.state.repName ? <h1>Spring Repository <a href={this.state.repUrl}>{this.state.repName}</a> </h1> : <h1>Loading...</h1>
     )
   }
 }

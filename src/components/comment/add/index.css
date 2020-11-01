@@ -1,0 +1,34 @@
+.title {
+  margin: 0;
+  font-size: 45px;
+  font-weight: 500;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.input-item {
+  margin-bottom: 10px;
+}
+
+.input-item > input {
+  width: 100%;
+}
+
+textarea {
+  height: 200px;
+  width: 100%;
+}
+
+.add-comment {
+  flex: 1;
+  position: relative;
+}
+
+.add-comment > button {
+  position: absolute;
+  right: 0;
+}
