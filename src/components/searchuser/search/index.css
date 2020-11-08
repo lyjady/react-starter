@@ -1,0 +1,15 @@
+header {
+  padding-left: 50px;
+  height: 200px;
+  overflow: hidden;
+  background-color: #eff0ef;
+}
+
+header h2 {
+  margin: 65px 0 10px 0;
+  font-weight: 400;
+}
+
+header button {
+  margin: 0 10px;
+}
