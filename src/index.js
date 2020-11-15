@@ -1,71 +1,71 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, NavLink, Switch, Route, Redirect} from "react-router-dom";
 import './style/bootstrap.css'
+import 'antd/dist/antd.css'
+import {Button, Select} from "antd";
+import {createStore} from "redux";
+import {counter} from './utils/redux/reducers'
+import {INCREMENT, DECREMENT} from './utils/redux/action_type'
 
 class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <div className="row">
-          <div className="col-xs-offset-2 col-xs-8">
-            <div className="page-header">
-              <h2>React Router Demo</h2>
-            </div>
-          </div>
-        </div>
 
-        <div className="row">
-          <div className="col-xs-2 col-xs-offset-2">
-            <div className="list-group">
-              {/* 导航路由链接, 类似于Vue的router-link */}
-              <NavLink className="list-group-item" to='/about'>About</NavLink>
-              <NavLink className="list-group-item" to='/home'>Home</NavLink>
-            </div>
-          </div>
-          <div className="col-xs-6">
-            <div className="panel">
-              <div className="panel-body">
-                {/* 可切换的路由组件, 类似于Vue的router-view, Switch表示标签内的组件只会显示一个 */}
-                <Switch>
-                  <Route path='/about' component={About}/>
-                  <Route path='/home' component={Home}/>
-                  <Redirect to='/home'/>
-                </Switch>
-              </div>
-            </div>
-          </div>
-        </div>
+  state = {
+    value: 1
+  }
+
+  increment = () => {
+    const {value} = this.state
+    store.dispatch({type: INCREMENT, data: value})
+  }
+
+  decrement = () => {
+    const {value} = this.state
+    store.dispatch({type: INCREMENT, data: value})
+  }
+
+  incrementIfOdd = () => {
+    let count = store.getState()
+    if (count % 2 !== 0) this.increment()
+  }
+
+  incrementAsync = () => {
+    setTimeout(() => this.increment(), 1000)
+  }
+
+  change = value => this.setState({value})
+
+  render() {
+    const {Option} = Select
+    const count = store.getState()
+    return (
+      <div style={{padding: 15}}>
+        <p>Click {count} times</p>
+        <Select defaultValue={1} style={{width: 150}} onChange={value => this.change(value)}>
+          <Option value={1}>1</Option>
+          <Option value={2}>2</Option>
+          <Option value={3}>3</Option>
+        </Select>&nbsp;&nbsp;
+        <Button shape={'round'} size={'small'} onClick={this.increment}>+</Button>&nbsp;&nbsp;
+        <Button shape={'round'} size={'small'} onClick={this.decrement}>-</Button>&nbsp;&nbsp;
+        <Button shape={'round'} size={'small'} onClick={this.incrementIfOdd}>increment if odd</Button>&nbsp;&nbsp;
+        <Button shape={'round'} size={'small'} onClick={this.incrementAsync}>increment async</Button>&nbsp;&nbsp;
       </div>
     )
   }
 }
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div>
-        <h3>This is Home Component</h3>
-      </div>
-    )
-  }
-}
-
-class About extends React.Component {
-  render() {
-    return (
-      <div>
-        <h3>This is About Component</h3>
-      </div>
-    )
-  }
-}
+// redux类似以vuex是全部组件的数据仓库
+// 创建store对象
+const store = createStore(counter)
 
 ReactDOM.render(
-  (
-    <BrowserRouter>
-      <App/>
-    </BrowserRouter>
-  ),
+  <App store={store}/>,
   document.querySelector('#root')
 )
+
+store.subscribe(() => {
+  ReactDOM.render(
+    <App store={store}/>,
+    document.querySelector('#root')
+  )
+})

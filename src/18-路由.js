@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, NavLink, Switch, Route, Redirect} from "react-router-dom";
+import {NavLink, Switch, Route, Redirect, HashRouter} from "react-router-dom";
+import Home from './components/route/Home'
+import About from './components/route/About'
 import './style/bootstrap.css'
+import 'antd/dist/antd.css'
 
 class App extends React.Component {
   render() {
@@ -14,13 +17,13 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="row">
           <div className="col-xs-2 col-xs-offset-2">
             <div className="list-group">
               {/* 导航路由链接, 类似于Vue的router-link */}
-              <NavLink className="list-group-item" to='/about'>About</NavLink>
-              <NavLink className="list-group-item" to='/home'>Home</NavLink>
+              {/* activeClassName设置激活时应用的类名 */}
+              <NavLink className="list-group-item" activeClassName={'active'} to='/about'>About</NavLink>
+              <NavLink className="list-group-item" activeClassName={'active'} to='/home'>Home</NavLink>
             </div>
           </div>
           <div className="col-xs-6">
@@ -30,7 +33,7 @@ class App extends React.Component {
                 <Switch>
                   <Route path='/about' component={About}/>
                   <Route path='/home' component={Home}/>
-                  <Redirect to='/home'/>
+                  <Redirect from={'/'} to='/about'/>
                 </Switch>
               </div>
             </div>
@@ -41,31 +44,11 @@ class App extends React.Component {
   }
 }
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div>
-        <h3>This is Home Component</h3>
-      </div>
-    )
-  }
-}
-
-class About extends React.Component {
-  render() {
-    return (
-      <div>
-        <h3>This is About Component</h3>
-      </div>
-    )
-  }
-}
-
 ReactDOM.render(
   (
-    <BrowserRouter>
+    <HashRouter>
       <App/>
-    </BrowserRouter>
+    </HashRouter>
   ),
   document.querySelector('#root')
 )
