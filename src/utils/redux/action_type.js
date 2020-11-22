@@ -1,2 +1,4 @@
 export const INCREMENT = 'INCREMENT'
 export const DECREMENT = 'DECREMENT'
+export const PUSH_COMMENT = 'PUSH_COMMENt'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
